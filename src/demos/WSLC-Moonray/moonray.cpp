@@ -21,7 +21,19 @@
 #pragma comment(lib, "wslcsdk.lib")
 
 static const char* IMAGE_NAME = "openmoonray:latest";
-static const wchar_t* IMAGE_TAR = L"C:\\cDev\\moonray-test\\output\\openmoonray.tar";
+
+// Resolve IMAGE_TAR at runtime relative to the .exe location,
+// matching the WslcImage TarLocation: $(OutDir)\Containerfiles\moonray.tar
+static std::wstring GetImageTarPath()
+{
+    wchar_t exePath[MAX_PATH];
+    GetModuleFileNameW(nullptr, exePath, MAX_PATH);
+    std::wstring dir(exePath);
+    size_t pos = dir.find_last_of(L"\\/");
+    if (pos != std::wstring::npos)
+        dir = dir.substr(0, pos);
+    return dir + L"\\Containerfiles\\moonray.tar";
+}
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -226,6 +238,8 @@ int wmain(int argc, wchar_t* argv[])
 
     // ---- Ensure image is available ----
     {
+        std::wstring imageTar = GetImageTarPath();
+
         // Check if the image is already cached in the session VHD
         WslcImageInfo* images = nullptr;
         uint32_t imgCount = 0;
@@ -245,13 +259,13 @@ int wmain(int argc, wchar_t* argv[])
         if (imageFound) {
             fwprintf(stderr, L"[moonray] Image '%hs' already cached in session.\n", IMAGE_NAME);
         } else {
-            fwprintf(stderr, L"[moonray] Loading image from '%s'...\n", IMAGE_TAR);
+            fwprintf(stderr, L"[moonray] Loading image from '%s'...\n", imageTar.c_str());
 
             WslcLoadImageOptions loadOpts = {};
             loadOpts.progressCallback = OnImageProgress;
             loadOpts.progressCallbackContext = nullptr;
 
-            hr = WslcLoadSessionImageFromFile(session, IMAGE_TAR, &loadOpts, &error);
+            hr = WslcLoadSessionImageFromFile(session, imageTar.c_str(), &loadOpts, &error);
             if (FAILED(hr)) {
                 PrintError(L"LoadSessionImageFromFile", hr, error);
                 goto cleanup;

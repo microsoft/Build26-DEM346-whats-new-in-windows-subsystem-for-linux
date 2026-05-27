@@ -1,0 +1,156 @@
+SceneVariables {
+    ["image_width"] = 800,
+    ["image_height"] = 1000,
+    ["lights_visible_in_camera"] = true,
+    ["output_file"] = "",
+    ["max_depth"] = 6,
+    ["max_diffuse_depth"] = 10,
+    ["max_glossy_depth"] = 10,
+    ["max_mirror_depth"] = 10,
+}
+
+RdlInstancerGeometry("/scene/objects/<root>") {
+    ["references"] = { RdlMeshGeometry("/scene/objects/<root>_mesh_4_1"), RdlInstancerGeometry("/scene/objects/<root>_mesh_0"), RdlMeshGeometry("/scene/objects/<root>_mesh_1_1"), RdlMeshGeometry("/scene/objects/<root>_mesh_2_1"), RdlMeshGeometry("/scene/objects/<root>_mesh_3_1")},
+    ["method"] = "xform list",
+    ["xform_list"] = { Mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1), Mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1), Mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1), Mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1), Mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)},
+    ["ref_indices"] = { 0, 1, 2, 3, 4},
+}
+
+RdlInstancerGeometry("/scene/objects/<root>_mesh_0") {
+    ["references"] = { RdlMeshGeometry("/scene/objects/<root>_mesh_0_1"), RdlMeshGeometry("/scene/objects/<root>_mesh_0_2")},
+    ["method"] = "xform list",
+    ["xform_list"] = { Mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1), Mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)},
+    ["ref_indices"] = { 0, 1},
+}
+
+RdlMeshGeometry("/scene/objects/<root>_mesh_0_1") {
+    ["part_list"] = { "tri_shape_0"},
+    ["part_face_count_list"] = { 3283},
+    ["is_subd"] = false,
+}
+
+RdlMeshGeometry("/scene/objects/<root>_mesh_0_2") {
+    ["part_list"] = { "tri_shape_0", "tri_shape_1", "tri_shape_2", "tri_shape_3", "tri_shape_4", "tri_shape_5", "tri_shape_6", "tri_shape_7", "tri_shape_8"},
+    ["part_face_count_list"] = { 14592, 12288, 1452, 1452, 1452, 1452, 2624, 320, 11776},
+    ["is_subd"] = false,
+}
+
+RdlMeshGeometry("/scene/objects/<root>_mesh_1_1") {
+    ["part_list"] = { "tri_shape_0"},
+    ["part_face_count_list"] = { 67072},
+    ["is_subd"] = false,
+}
+
+RdlMeshGeometry("/scene/objects/<root>_mesh_2_1") {
+    ["part_list"] = { "tri_shape_0", "tri_shape_1", "tri_shape_2", "tri_shape_3", "tri_shape_4", "tri_shape_5"},
+    ["part_face_count_list"] = { 25216, 35200, 2304, 2304, 33694, 10848},
+    ["is_subd"] = false,
+}
+
+RdlMeshGeometry("/scene/objects/<root>_mesh_3_1") {
+    ["part_list"] = { "tri_shape_0", "tri_shape_1"},
+    ["part_face_count_list"] = { 4096, 3456},
+    ["is_subd"] = false,
+}
+
+RdlMeshGeometry("/scene/objects/<root>_mesh_4_1") {
+    ["part_list"] = { "tri_shape_0"},
+    ["part_face_count_list"] = { 384},
+    ["is_subd"] = false,
+}
+
+GeometrySet("/scene/geometrysets/GeometrySet1") {
+    RdlInstancerGeometry("/scene/objects/<root>"),
+    RdlInstancerGeometry("/scene/objects/<root>_mesh_0"),
+    RdlMeshGeometry("/scene/objects/<root>_mesh_1_1"),
+    RdlMeshGeometry("/scene/objects/<root>_mesh_2_1"),
+    RdlMeshGeometry("/scene/objects/<root>_mesh_3_1"),
+    RdlMeshGeometry("/scene/objects/<root>_mesh_4_1"),
+}
+
+Layer("/scene/layers/Layer1") {
+    {RdlInstancerGeometry("/scene/objects/<root>"), "", undef(), LightSet("/scene/lightsets/LightSet1"), undef(), undef(), undef(), undef()},
+    {RdlInstancerGeometry("/scene/objects/<root>_mesh_0"), "", undef(), LightSet("/scene/lightsets/LightSet1"), undef(), undef(), undef(), undef()},
+    {RdlMeshGeometry("/scene/objects/<root>_mesh_0_1"), "", DwaSolidDielectricMaterial("/scene/materials/Plastic_Black/0x1fac3a0"), LightSet("/scene/lightsets/LightSet1"), undef(), undef(), undef(), undef()},
+    {RdlMeshGeometry("/scene/objects/<root>_mesh_0_2"), "", DwaSolidDielectricMaterial("/scene/materials/Plastic_Black/0x1fac3a0"), LightSet("/scene/lightsets/LightSet1"), undef(), undef(), undef(), undef()},
+    {RdlMeshGeometry("/scene/objects/<root>_mesh_1_1"), "", DwaRefractiveMaterial("/scene/materials/Glass/0x1fa52c0"), LightSet("/scene/lightsets/LightSet1"), undef(), undef(), undef(), undef()},
+    {RdlMeshGeometry("/scene/objects/<root>_mesh_2_1"), "", DwaSolidDielectricMaterial("/scene/materials/Plastic_Orange/0x1fa53a0"), LightSet("/scene/lightsets/LightSet1"), undef(), undef(), undef(), undef()},
+    {RdlMeshGeometry("/scene/objects/<root>_mesh_3_1"), "", DwaSolidDielectricMaterial("/scene/materials/Metal/0x1fa5b10"), LightSet("/scene/lightsets/LightSet1"), undef(), undef(), undef(), undef()},
+    {RdlMeshGeometry("/scene/objects/<root>_mesh_4_1"), "", DwaSolidDielectricMaterial("/scene/materials/Floor/0x221ae30"), LightSet("/scene/lightsets/LightSet1"), undef(), undef(), undef(), undef()},
+}
+
+DwaSolidDielectricMaterial("/scene/materials/Floor/0x221ae30") {
+    ["roughness"] = bind(undef(), 0.0316227786),
+    ["albedo"] = bind(undef(), Rgb(0.578595996, 0.578595996, 0.578595996)),
+    ["thin_geometry"] = true,
+    ["casts_caustics"] = true,
+}
+
+DwaRefractiveMaterial("/scene/materials/Glass/0x1fa52c0") {
+    ["roughness"] = bind(undef(), 0),
+    ["casts_caustics"] = true,
+}
+
+DwaSolidDielectricMaterial("/scene/materials/Metal/0x1fa5b10") {
+    ["refractive_index"] = 37.9736366,
+    ["roughness"] = bind(undef(), 0),
+    ["show_diffuse"] = false,
+    ["casts_caustics"] = true,
+}
+
+DwaSolidDielectricMaterial("/scene/materials/Plastic_Black/0x1fac3a0") {
+    ["roughness"] = bind(undef(), 0.316227764),
+    ["albedo"] = bind(undef(), Rgb(0.00631000008, 0.00631000008, 0.00631000008)),
+    ["thin_geometry"] = true,
+    ["casts_caustics"] = true,
+}
+
+DwaSolidDielectricMaterial("/scene/materials/Plastic_Orange/0x1fa53a0") {
+    ["roughness"] = bind(undef(), 0.0316227786),
+    ["albedo"] = bind(undef(), Rgb(1, 0.378675997, 0.0134730004)),
+    ["thin_geometry"] = true,
+    ["casts_caustics"] = true,
+}
+
+RectLight("/scene/arealights/<root>_1") {
+    ["node_xform"] = blur(Mat4(-0.42261892557144165, -0, -0.90630757808685303, 0, 0, -1.0000001192092896, 0, 0, -0.90630751848220825, 0, 0.42261889576911926, 0, -0.27792298793792725, 0.22527100145816803, 0.16372349858283997, 1), Mat4(-0.42261892557144165, -0, -0.90630757808685303, 0, 0, -1.0000001192092896, 0, 0, -0.90630751848220825, 0, 0.42261889576911926, 0, -0.27792298793792725, 0.22527100145816803, 0.16372349858283997, 1)),
+    ["visible_in_camera"] = "force on",
+    ["color"] = Rgb(2, 2, 2),
+    ["normalized"] = false,
+    ["apply_scene_scale"] = false,
+    ["width"] = 0.385150731,
+    ["height"] = 0.448843986,
+}
+
+RectLight("/scene/arealights/<root>_2") {
+    ["node_xform"] = blur(Mat4(-0, -1, -0, 0, 0.012445911765098572, 0, -0.99992263317108154, 0, 0.99992263317108154, -0, 0.012445911765098572, 0, 0.32294699549674988, 0.25175949931144714, 0.046277999877929688, 1), Mat4(-0, -1, -0, 0, 0.012445911765098572, 0, -0.99992263317108154, 0, 0.99992263317108154, -0, 0.012445911765098572, 0, 0.32294699549674988, 0.25175949931144714, 0.046277999877929688, 1)),
+    ["visible_in_camera"] = "force on",
+    ["color"] = Rgb(2, 2, 2),
+    ["normalized"] = false,
+    ["apply_scene_scale"] = false,
+    ["width"] = 0.448845029,
+    ["height"] = 0.365422279,
+}
+
+RectLight("/scene/arealights/<root>_3") {
+    ["node_xform"] = blur(Mat4(0.99999994039535522, -0, -0, 0, 0, 0, -0.99999988079071045, 0, 0, 0.99999994039535522, 0, 0, 0, 0.50384998321533203, 0.03724350780248642, 1), Mat4(0.99999994039535522, -0, -0, 0, 0, 0, -0.99999988079071045, 0, 0, 0.99999994039535522, 0, 0, 0, 0.50384998321533203, 0.03724350780248642, 1)),
+    ["visible_in_camera"] = "force on",
+    ["color"] = Rgb(2, 2, 2),
+    ["normalized"] = false,
+    ["apply_scene_scale"] = false,
+    ["width"] = 0.46025601,
+    ["height"] = 0.460256994,
+}
+
+LightSet("/scene/lightsets/LightSet1") {
+    RectLight("/scene/arealights/<root>_1"),
+    RectLight("/scene/arealights/<root>_2"),
+    RectLight("/scene/arealights/<root>_3"),
+}
+
+PerspectiveCamera("/scene/cameras/PerspectiveCamera_1") {
+    ["node_xform"] = blur(Mat4(0.9999731183052063, 2.6193439084387649e-10, 0.0072711417451500893, 0, 0.00028589164139702916, 0.99922645092010498, -0.039317663758993149, 0, -0.0072655165567994118, 0.039318744093179703, 0.99920064210891724, 0, -0.0029600388370454311, 0.19830313324928284, 0.82815104722976685, 1), Mat4(0.9999731183052063, 2.6193439084387649e-10, 0.0072711417451500893, 0, 0.00028589164139702916, 0.99922645092010498, -0.039317663758993149, 0, -0.0072655165567994118, 0.039318744093179703, 0.99920064210891724, 0, -0.0029600388370454311, 0.19830313324928284, 0.82815104722976685, 1)),
+    ["near"] = 0.00100000005,
+    ["far"] = 99999.8984,
+    ["focal"] = blur(54.1285019, 54.1285019),
+}

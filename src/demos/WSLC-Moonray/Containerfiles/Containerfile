@@ -49,6 +49,12 @@ RUN gcc -shared -fPIC -o /usr/lib64/libnobind.so /tmp/nobind.c -ldl && \
 
 ENV LD_PRELOAD=/usr/lib64/libnobind.so
 
+# Pre-build shader descriptions so they're baked into the image.
+# setup.sh runs rdl2_json_exporter to create shader_json/ if it doesn't exist,
+# but that fails at runtime because the WSLC container image layer is read-only.
+# Running it here during the build creates the directory in the image itself.
+RUN bash -c 'source /installs/openmoonray/scripts/setup.sh'
+
 # Create an entrypoint script that sources setup.sh
 RUN echo '#!/bin/bash' > /entrypoint.sh && \
     echo 'source /installs/openmoonray/scripts/setup.sh' >> /entrypoint.sh && \

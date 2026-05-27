@@ -1,0 +1,28 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.ncb
+*.opensdf
+*.sdf
+
+# Build output
+x64/
+Debug/
+Release/
+WSLCMoonray/
+*.obj
+*.pdb
+*.ilk
+*.log
+*.tlog
+
+# NuGet packages (restored from NuGet.Config sources)
+packages/
+local-packages/
+
+# Render output
+samples/**/*.jpg
+samples/**/*.exr
+!samples/**/*.rdla
+!samples/**/*.rdlb
