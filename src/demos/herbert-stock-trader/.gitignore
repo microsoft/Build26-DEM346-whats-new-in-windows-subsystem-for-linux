@@ -1,0 +1,38 @@
+# Build results
+bin/
+obj/
+x64/
+ARM64/
+
+**/herbert.tar
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/
+
+# Visual Studio
+.vs/
+
+# NuGet
+*.nupkg
+packages/
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# Rider
+.idea/
+
+# Build logs
+*.log
+msbuild.binlog

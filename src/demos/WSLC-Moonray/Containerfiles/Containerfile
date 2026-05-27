@@ -1,0 +1,59 @@
+# MoonRay Rocky Linux 9 container build
+# Based on: https://docs.openmoonray.org/getting-started/installation/building-moonray/rocky9_container_build/
+
+FROM rockylinux:9
+
+# Step 1: Clone openmoonray source
+RUN dnf install -y git git-lfs && \
+    git lfs install && \
+    git clone --recurse-submodules https://github.com/dreamworksanimation/openmoonray.git /source
+
+# Step 2: Install base requirements (no CUDA for container build)
+# install_packages.sh downloads cmake 3.23.1 to /installs/
+RUN bash -c 'source /source/building/Rocky9/install_packages.sh --nocuda'
+
+# Put the downloaded cmake 3.23.1 in PATH for all subsequent steps
+ENV PATH="/installs/cmake-3.23.1-linux-x86_64/bin:${PATH}"
+
+# Step 3: Build remaining dependencies from source
+# These install to /opt/MoonRay/installs by default
+RUN mkdir /build && \
+    cd /build && \
+    cmake /source/building/Rocky9 && \
+    cmake --build . -- -j $(nproc)
+
+# Step 4: Build MoonRay itself
+# Must set CMAKE_PREFIX_PATH so CMake finds deps in /opt/MoonRay/installs
+RUN cd /build && \
+    rm -rf * && \
+    cmake /source \
+      -DCMAKE_PREFIX_PATH=/opt/MoonRay/installs \
+      -DPYTHON_EXECUTABLE=python3 \
+      -DBOOST_PYTHON_COMPONENT_NAME=python39 \
+      -DABI_VERSION=0 \
+      -DMOONRAY_USE_OPTIX=NO && \
+    cmake --build . -j $(nproc)
+
+# Step 5: Install MoonRay
+RUN mkdir -p /installs/openmoonray && \
+    cmake --install /build --prefix /installs/openmoonray
+
+# Clean up build directory to reduce image size
+RUN rm -rf /build
+
+# Workaround: wslc containers block mbind() syscall (no --security-opt).
+# Intercept syscall() to make __NR_mbind and __NR_move_pages no-ops.
+COPY nobind.c /tmp/nobind.c
+RUN gcc -shared -fPIC -o /usr/lib64/libnobind.so /tmp/nobind.c -ldl && \
+    rm /tmp/nobind.c
+
+ENV LD_PRELOAD=/usr/lib64/libnobind.so
+
+# Create an entrypoint script that sources setup.sh
+RUN echo '#!/bin/bash' > /entrypoint.sh && \
+    echo 'source /installs/openmoonray/scripts/setup.sh' >> /entrypoint.sh && \
+    echo 'exec "$@"' >> /entrypoint.sh && \
+    chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["bash"]

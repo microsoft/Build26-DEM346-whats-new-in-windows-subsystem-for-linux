@@ -1,36 +1,3 @@
-# 🚀 Get Started
-
-**This repo is where attendees go to continue their learning after your session — and your Copilot agent will help you set it up.**
-
-### Step 1: Open your repo
-
-Open this repo in a **Codespace** (click the green **Code** button → **Create a Codespace**) — or clone it locally. Then open **GitHub Copilot Chat**.
-
-### Step 2: Add your content
-
-Give the agent something to work with. Drag files into the Explorer panel — session abstracts, outlines, screenshots, notes — and drop them in one of two places:
-
-| Where to put it | What goes there | Who sees it |
-|---|---|---|
-| **`_remove-before-publish/`** | Internal reference materials (abstracts, outlines, screenshots, planning docs) | **Copilot only** — never published |
-| **`/docs/`, `/src/`, or repo root** | Lab instructions, demo code, sample data, getting-started guides | **Attendees** — published with the repo |
-
-> 💡 Not sure? Start by dropping your session abstract or outline into `_remove-before-publish/`. The agent will figure out what to do with it.
-
-### Step 3: Ask the Agent
-
-Once your content is in the repo, use these three phrases with Copilot to build out your session repo:
-
-| Phrase to use with Copilot | What it does | When to run it |
-|---|---|---|
-| **"Help me get started"** | Sets up session title, description, outcomes, and owners | After you've added your session abstract or outline to the repo |
-| **"Help me refine content"** | Organizes your session content into the repo | Each time you add or update content |
-| **"Help me finalize"** | Final review, cleanup, and publication prep | When you're ready to publish |
-
-> 💡 **These three phrases are just the starting point.** Copilot can do much more — try asking it to brainstorm next steps for attendees, generate code samples, or build out your repo structure. Don't be afraid to put it in plan mode and ask for what you need.
-
----
-
 <a name="start-building"></a>
 <br>
 <p align="center">
@@ -39,62 +6,82 @@ Once your content is in the repo, use these three phrases with Copilot to build 
 
 # [Microsoft Build 2026](https://build.microsoft.com)
 
-## 🔥 BRKXXX: SESSION TITLE
+## 🔥 DEM346: What's New in Windows Subsystem for Linux
 
 ### Session Description
 
-*Add Session Description*
+Discover the latest features in Windows Subsystem for Linux, including WSL Containers — a new way to run containerized Linux workloads directly on Windows. See how to package Linux apps as native Windows executables, run GPU-accelerated machine learning workloads, and build containerized web apps, all powered by WSL.
 
-### 🏫 Getting started in a guided session
+### 🚀 Getting started
 
-To get started in a guided lab session:
-- <!-- step 1 -->
-- <!-- step 2 -->
-- <!-- step 3 -->
+If you'd like to explore the demos from this presentation on your own:
 
-### 🏠 Getting started in your own environment
-
-If you're following these steps at your own pace:
 - Clone this repository
-- Set up your development environment
-- <!-- step 3 -->
+- Install [Windows Subsystem for Linux](https://learn.microsoft.com/windows/wsl/install) (WSL 2.8+) with WSL Container support (`wslc`)
+- Browse the demos in [`src/demos/`](src/demos/) — each has its own README with build and run instructions:
+  - [**WSLC-Moonray**](src/demos/WSLC-Moonray/) — Package a Linux renderer as a native Windows executable using the WSL Container SDK
+  - [**Herbert Stock Trader**](src/demos/herbert-stock-trader/) — A WinUI 3 app streaming a containerized Linux desktop to Windows
+  - [**Kernel Vision (Triton Build Demo)**](src/demos/triton-build-demo/) — Visualize neural network optimization inside a WSL Container with GPU support
+  - [**WSL File Inspector**](src/demos/wsl-file-inspector/) — A Flask web app running Linux file analysis tools in a container
 
 ### 🧠 Learning Outcomes
 
-By the end of this session, you will be able to:
+By the end of this demo, you will be able to:
 
-- <!-- outcome 1 -->
-- <!-- outcome 2 -->
-- <!-- outcome 3 -->
+- Understand what WSL Containers are and how they enable running containerized Linux workloads directly on Windows
+- Use the WSL Container SDK and CLI to build, run, and package Linux container images as native Windows applications
+- Explore real-world scenarios for WSL Containers including GPU-accelerated ML workloads, desktop app integration, and containerized web services
 
 ### 💬 Keep Learning with Copilot
 
-Try these prompts with GitHub Copilot to explore the topics from this session. Open Copilot Chat in VS Code (`Ctrl+Alt+I` on Windows/Linux, `Cmd+Shift+I` on Mac), paste a prompt, and see what you learn. Try connecting the [Microsoft Learn MCP Server](#-microsoft-learn-mcp-server) for the latest official documentation.
+Try these prompts with GitHub Copilot to explore the topics from this demo. Open Copilot Chat in Visual Studio Code (`Ctrl+Alt+I` on Windows/Linux, `Cmd+Shift+I` on Mac), paste a prompt, and see what you learn. Try connecting the [Microsoft Learn MCP Server](#-microsoft-learn-mcp-server) for the latest official documentation.
 
 Use these as a starting point — or write your own!
 
-<!-- Prompts will be tailored to this session's content during repo setup. -->
+1. Understand the basics:
 
-> *Prompts coming soon — check back after the session content is finalized.*
+```
+Explain what WSL Containers are, how they differ from traditional WSL distributions, and what scenarios they're best suited for
+```
+
+2. Go deeper:
+
+```
+Using the Microsoft Learn MCP Server, find the latest documentation on the WSL Container SDK and walk me through how to package a Linux application as a native Windows executable
+```
+
+3. Build something:
+
+```
+Help me create a simple containerized Python web app that runs on Windows using wslc. I want to build a container image from a Containerfile, run it with port forwarding, and access it from my Windows browser
+```
 
 ### 💻 Technologies Used
 
-1. <!-- technology 1 -->
-1. <!-- technology 2 -->
-1. <!-- technology 3 -->
+1. [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/windows/wsl/) — Run Linux distributions natively on Windows
+1. [WSL Containers (wslc)](https://aka.ms/wslc) — Build and run OCI container images directly on Windows via WSL
+1. [WinUI 3](https://learn.microsoft.com/windows/apps/winui/winui3/) — Modern native UI framework for Windows desktop apps
+1. [.NET 8](https://learn.microsoft.com/dotnet/core/whats-new/dotnet-8/) — Cross-platform framework used by the Herbert Stock Trader demo
+1. [Python](https://www.python.org/) — Used in the WSL File Inspector and Triton demos
+1. [PyTorch](https://pytorch.org/) — Machine learning framework used in the Kernel Vision demo
 
 ### 📚 Resources and Next Steps
 
 | Resource | Description |
 |:---------|:------------|
-| [https://aka.ms/build26-next-steps](https://aka.ms/build26-next-steps) | Explore lab and session repos to further your learning from Microsoft Build |
+| [Windows Subsystem for Linux Documentation](https://learn.microsoft.com/windows/wsl/) | Official WSL documentation on Microsoft Learn |
+| [WSL Containers](https://aka.ms/wslc) | Learn about WSL Containers and the WSL Container SDK |
+| [Install WSL](https://learn.microsoft.com/windows/wsl/install) | Step-by-step guide to installing WSL on Windows |
+| [GPU Support in WSL](https://learn.microsoft.com/windows/wsl/tutorials/gpu-compute) | Set up GPU-accelerated workloads in WSL |
+| [WinUI 3 Documentation](https://learn.microsoft.com/windows/apps/winui/winui3/) | Build modern Windows desktop apps with WinUI |
+| [Explore Microsoft Build 2026 Labs and Sessions](https://aka.ms/build26-next-steps) | Explore lab and session repos to further your learning from Microsoft Build |
 
 
 ### 🌟 Microsoft Learn MCP Server
 
-The Microsoft Learn MCP Server gives your AI agent direct access to Microsoft's official documentation — grounded, up-to-date answers about the products and services covered in this session.
+The Microsoft Learn MCP Server gives your AI agent direct access to Microsoft's official documentation — grounded, up-to-date answers about the products and services covered in this demo.
 
-**VS Code** — One click installation: 
+**Visual Studio Code** — One click installation: 
 
 [![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_Microsoft_Learn_MCP-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://vscode.dev/redirect/mcp/install?name=microsoft-learn&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Flearn.microsoft.com%2Fapi%2Fmcp%22%7D)
 
@@ -108,17 +95,17 @@ For more info, other clients, and to post questions, visit the [Learn MCP Server
 
 ## Content Owners
 
-<!-- TODO: Add yourself as a content owner
-1. Change the src in the image tag to {your github url}.png
-2. Change INSERT NAME HERE to your name
-3. Change the github url in the final href to your url. -->
-
 <table>
 <tr>
-    <td align="center"><a href="http://github.com/yourGitHubHandle">
-        <img src="https://github.com/yourGitHubHandle.png" width="100px;" alt="INSERT NAME HERE"/><br />
-        <sub><b>INSERT NAME HERE</b></sub></a><br />
-            <a href="https://github.com/yourGitHubHandle" title="talk">📢</a>
+    <td align="center"><a href="https://github.com/craigloewen-msft">
+        <img src="https://github.com/craigloewen-msft.png" width="100px;" alt="Craig Loewen"/><br />
+        <sub><b>Craig Loewen</b></sub></a><br />
+            <a href="https://github.com/craigloewen-msft" title="talk">📢</a>
+    </td>
+    <td align="center"><a href="https://github.com/ptrivedi">
+        <img src="https://github.com/ptrivedi.png" width="100px;" alt="Pooja Trivedi"/><br />
+        <sub><b>Pooja Trivedi</b></sub></a><br />
+            <a href="https://github.com/ptrivedi" title="talk">📢</a>
     </td>
 </tr></table>
 

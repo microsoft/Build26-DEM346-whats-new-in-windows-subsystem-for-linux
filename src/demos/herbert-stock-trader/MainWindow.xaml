@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="HerbertStockTrader.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HerbertStockTrader"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Herbert Stock Trader">
+
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+
+    <Grid Loaded="OnLoaded">
+        <NavigationView x:Name="NavView"
+                        IsBackButtonVisible="Collapsed"
+                        PaneDisplayMode="Left"
+                        SelectionChanged="NavView_SelectionChanged"
+                        IsSettingsVisible="False"
+                        OpenPaneLength="220">
+
+            <NavigationView.MenuItems>
+                <NavigationViewItem x:Name="DashboardNavItem" Content="Trading Dashboard" Tag="Dashboard">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE9F9;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+
+                <NavigationViewItem Content="Herbert's Desktop" Tag="Herbert">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE99A;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+
+            <NavigationView.PaneFooter>
+                <StackPanel Padding="16,8" Spacing="8">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <FontIcon x:Name="HerbertPulseIcon" Glyph="&#xE945;" FontSize="18"
+                                  Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
+                        <TextBlock x:Name="HerbertStatusText" Text="Herbert is starting..." VerticalAlignment="Center"
+                                   FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                </StackPanel>
+            </NavigationView.PaneFooter>
+
+            <!-- Content area: panels toggled by nav selection -->
+            <Grid>
+                <!-- Dashboard Panel (trades + files) -->
+                <Grid x:Name="DashboardPanel" Visibility="Visible">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="320" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Left: Live Trading Output -->
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Padding="16,12"
+                              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                              BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="0,0,0,1">
+                            <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                                <FontIcon Glyph="&#xE9F9;" FontSize="16"
+                                          Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
+                                <TextBlock x:Name="LogHeaderText" Text="Live Trading Output — Starting..."
+                                           Style="{StaticResource BodyStrongTextBlockStyle}" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Grid>
+
+                        <ScrollViewer x:Name="LogScrollViewer" Grid.Row="1" Padding="16"
+                                      VerticalScrollBarVisibility="Auto">
+                            <TextBlock x:Name="LogTextBlock"
+                                       FontFamily="Cascadia Code, Consolas, Courier New"
+                                       FontSize="13"
+                                       TextWrapping="Wrap"
+                                       IsTextSelectionEnabled="True"
+                                       Foreground="{ThemeResource TextFillColorPrimaryBrush}" />
+                        </ScrollViewer>
+                    </Grid>
+
+                    <!-- Splitter -->
+                    <Border Grid.Column="1" Width="1"
+                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+                    <!-- Right: Herbert's Desktop Files -->
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Padding="16,12"
+                              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                              BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="0,0,0,1">
+                            <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                                <FontIcon Glyph="&#xE8B7;" FontSize="16"
+                                          Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
+                                <TextBlock Text="Herbert's Documents"
+                                           Style="{StaticResource BodyStrongTextBlockStyle}" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Grid>
+
+                        <TreeView x:Name="FileTreeView" Grid.Row="1" Margin="4,4,4,4"
+                                  SelectionMode="Single" />
+                    </Grid>
+                </Grid>
+
+                <!-- Herbert's Desktop Panel (WebView2 noVNC) -->
+                <Grid x:Name="DesktopPanel" Visibility="Collapsed" Background="Black"
+                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!-- WebView2 added programmatically to Row 0 -->
+
+                    <Border Grid.Row="1"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="0,1,0,0"
+                            Padding="12,8">
+                        <Button x:Name="GoBackToWorkButton"
+                                Content="&#x1F47B; Go back to work please"
+                                Click="GoBackToWorkButton_Click"
+                                HorizontalAlignment="Center"
+                                Style="{StaticResource AccentButtonStyle}" />
+                    </Border>
+                </Grid>
+            </Grid>
+        </NavigationView>
+    </Grid>
+</Window>
