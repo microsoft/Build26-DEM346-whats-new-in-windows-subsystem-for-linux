@@ -1,0 +1,25 @@
+FROM pytorch/pytorch:2.2.0-cuda12.1-cudnn8-devel
+
+# Install Python dependencies
+RUN pip install --no-cache-dir \
+    transformers==4.37.0 \
+    matplotlib \
+    jupyter \
+    ipywidgets \
+    networkx \
+    scipy
+
+# Set working directory
+WORKDIR /demo
+
+# Copy demo files
+COPY demo.ipynb /demo/
+COPY start.sh /demo/
+
+# Fix line endings and make executable
+RUN sed -i 's/\r$//' /demo/start.sh && chmod +x /demo/start.sh
+
+# Expose Jupyter port
+EXPOSE 8888
+
+CMD ["/demo/start.sh"]
