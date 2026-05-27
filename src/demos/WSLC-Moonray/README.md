@@ -28,7 +28,7 @@ item in the project file) and places the `.tar` alongside the executable.
 
 Render the included coffee maker sample scene:
 ```
-x64\Debug\moonray.exe -in samples\coffee_maker\scene.rdla -in samples\coffee_maker\scene.rdlb -out samples\coffee_maker\render_output.jpg -res 4.0
+x64\Debug\moonray.exe -in samples\coffee_maker\scene.rdla -in samples\coffee_maker\scene.rdlb -out samples\coffee_maker\render_output.jpg -res 4.0 -info
 ```
 
 By default moonray uses all available threads. Use `-res` to control the
