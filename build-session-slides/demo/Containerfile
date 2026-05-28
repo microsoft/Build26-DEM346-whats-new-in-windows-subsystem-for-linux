@@ -1,0 +1,33 @@
+
+FROM python:3.12-slim
+
+# Prevent Python from writing pyc files and enable unbuffered logs
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+# System deps: minimal set. (Pillow often works without extra libs on slim,
+# but adding these improves compatibility with common formats.)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libjpeg62-turbo \
+    zlib1g \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python deps
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy app
+COPY app.py .
+COPY templates ./templates
+
+# App listens on 8080 inside the container
+EXPOSE 8080
+
+# Run as non-root (optional but recommended)
+RUN useradd -m appuser
+USER appuser
+
+CMD ["python", "app.py"]
+

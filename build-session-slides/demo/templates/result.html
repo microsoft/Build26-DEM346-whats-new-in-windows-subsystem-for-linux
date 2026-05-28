@@ -1,0 +1,31 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ASCII Art Result</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      body { margin: 1.5rem; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+      a { display: inline-block; margin-bottom: 1rem; }
+      pre {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+        font-size: 10px;
+        line-height: 10px;
+        background: #0b0b0b;
+        color: #eaeaea;
+        padding: 1rem;
+        border-radius: 14px;
+        overflow: auto;
+        white-space: pre;
+      }
+      .meta { color: #444; margin: 0.25rem 0 1rem; }
+    </style>
+  </head>
+  <body>
+    <a href="/">← Convert another</a>
+    <div class="meta">Rendered at {{ cols }} columns</div>
+    <pre>{{ ascii_text }}</pre>
+  </body>
+</html>
+

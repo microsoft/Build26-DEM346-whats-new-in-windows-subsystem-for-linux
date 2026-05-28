@@ -1,0 +1,318 @@
+/* ══════════════════════════════════
+   Architecture Diagram Styles
+══════════════════════════════════ */
+
+/* ── Phased reveal transitions ── */
+.arch-slide .arch-reveal {
+  transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
+}
+
+/* Phase 1: only outer shells + bottom layers */
+.arch-slide.arch-phase-1 .arch-win-app-box,
+.arch-slide.arch-phase-1 .arch-wslc-pos,
+.arch-slide.arch-phase-1 .arch-service-pos,
+.arch-slide.arch-phase-1 .arch-moby-pos,
+.arch-slide.arch-phase-1 .arch-containers-row {
+  opacity: 0; visibility: hidden; transform: translateY(12px);
+}
+
+/* Phase 2: + Windows Application + wslc.exe */
+.arch-slide.arch-phase-2 .arch-service-pos,
+.arch-slide.arch-phase-2 .arch-moby-pos,
+.arch-slide.arch-phase-2 .arch-containers-row {
+  opacity: 0; visibility: hidden; transform: translateY(12px);
+}
+
+/* Phase 3: + wslservice.exe (COM arrows via SVG) */
+.arch-slide.arch-phase-3 .arch-moby-pos,
+.arch-slide.arch-phase-3 .arch-containers-row {
+  opacity: 0; visibility: hidden; transform: translateY(12px);
+}
+
+/* Phase 4: + moby (hvsocket arrow via SVG) */
+.arch-slide.arch-phase-4 .arch-containers-row {
+  opacity: 0; visibility: hidden; transform: translateY(12px);
+}
+
+/* Phase 5: everything visible */
+
+/* ── SVG arrow overlay ── */
+.arch-arrow-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  animation: archArrowIn 0.5s ease both;
+}
+
+@keyframes archArrowIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Diagram container ── */
+.arch-diagram {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 1.14rem;
+  position: relative;
+}
+
+/* ── Your Machine outer box ── */
+.arch-machine {
+  border: 1.5px solid rgba(37,99,235,0.3);
+  border-radius: 16px;
+  padding: 0.6rem 0.8rem 0.8rem;
+  background: linear-gradient(145deg, rgba(37,99,235,0.04), rgba(124,58,237,0.02));
+  box-shadow: 0 0 40px rgba(37,99,235,0.04);
+}
+
+.arch-machine-label {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1d4ed8;
+  margin-bottom: 0.5rem;
+  padding-left: 0.3rem;
+  letter-spacing: 0.04em;
+}
+
+.arch-machine-content {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 0.7rem;
+}
+
+.arch-machine .arch-hypervisor {
+  grid-column: 1 / -1;
+}
+
+/* ── Zone boxes (Windows OS / Linux VM) ── */
+.arch-zone {
+  border-radius: 12px;
+  padding: 0.6rem;
+  min-height: 260px;
+}
+
+.arch-zone-win {
+  border: 1.5px solid rgba(71,85,105,0.25);
+  background: rgba(71,85,105,0.04);
+}
+
+.arch-zone-linux {
+  border: 1.5px solid rgba(5,150,105,0.3);
+  background: rgba(5,150,105,0.04);
+}
+
+.arch-zone-label {
+  font-size: 1.17rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.04em;
+}
+
+.win-label  { color: #334155; }
+.linux-label { color: #047857; }
+
+/* ── Windows OS internal grid ── */
+.arch-win-grid {
+  display: grid;
+  grid-template-areas:
+    "app    svc"
+    "wslc   svc";
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 1fr 1fr;
+  gap: 0.8rem;
+}
+
+/* Windows Application box */
+.arch-win-app-box {
+  grid-area: app;
+  border: 1.5px solid rgba(219,39,119,0.25);
+  background: rgba(219,39,119,0.04);
+  border-radius: 10px;
+  padding: 0.6rem 0.7rem;
+}
+
+.arch-box-title {
+  font-size: 1.04rem;
+  font-weight: 700;
+  color: #be185d;
+  margin-bottom: 0.55rem;
+  letter-spacing: 0.03em;
+}
+
+.arch-app-flow {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: nowrap;
+}
+
+/* Flow connector (—— LoadLibrary() ▸) */
+.arch-connector {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.arch-connector-line {
+  width: 14px;
+  height: 1.5px;
+  background: #94a3b8;
+  border-radius: 1px;
+}
+
+.arch-connector-label {
+  font-family: 'Courier New', Consolas, monospace;
+  font-size: 0.91rem;
+  font-weight: 600;
+  color: #475569;
+  letter-spacing: 0.01em;
+}
+
+.arch-connector-arrow {
+  color: #475569;
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+/* WSL Containers CLI box */
+.arch-win-cli-box {
+  border: 1.5px solid rgba(37,99,235,0.25);
+  background: rgba(37,99,235,0.04);
+  border-radius: 10px;
+  padding: 0.6rem 0.7rem;
+}
+
+.arch-win-cli-box .arch-box-title.cli-title {
+  color: #1d4ed8;
+}
+
+/* Service and wslc grid positions */
+.arch-service-pos {
+  grid-area: svc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+}
+
+.arch-wslc-pos {
+  grid-area: wslc;
+  display: flex;
+  align-items: center;
+}
+
+.arch-win-cli-box {
+  width: 100%;
+}
+
+/* ── Linux VM internal layout ── */
+.arch-linux-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.8rem;
+  padding: 1.2rem 0.4rem 0.4rem;
+}
+
+.arch-moby-pos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arch-containers-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  width: 100%;
+}
+
+/* Container cards */
+.arch-ctr-card {
+  border: 1.5px solid rgba(13,148,136,0.3);
+  background: rgba(13,148,136,0.04);
+  border-radius: 10px;
+  padding: 0.65rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.arch-ctr-title {
+  font-size: 1.01rem;
+  font-weight: 700;
+  color: #0f766e;
+  letter-spacing: 0.03em;
+}
+
+/* ── Chips (component labels) ── */
+.arch-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.7rem;
+  border-radius: 7px;
+  font-size: 1.01rem;
+  font-weight: 600;
+  white-space: nowrap;
+  letter-spacing: 0.015em;
+  transition: box-shadow 0.3s ease;
+}
+
+.chip-blue {
+  background: rgba(37,99,235,0.1);
+  border: 1px solid rgba(37,99,235,0.3);
+  color: #1d4ed8;
+}
+
+.chip-purple {
+  background: rgba(124,58,237,0.1);
+  border: 1px solid rgba(124,58,237,0.3);
+  color: #6d28d9;
+}
+
+.chip-pink {
+  background: rgba(219,39,119,0.1);
+  border: 1px solid rgba(219,39,119,0.3);
+  color: #be185d;
+}
+
+.chip-green {
+  background: rgba(5,150,105,0.1);
+  border: 1px solid rgba(5,150,105,0.3);
+  color: #047857;
+}
+
+.chip-teal {
+  background: rgba(13,148,136,0.1);
+  border: 1px solid rgba(13,148,136,0.3);
+  color: #0f766e;
+}
+
+/* ── Bottom layers ── */
+.arch-layer {
+  border-radius: 8px;
+  padding: 0.4rem 1rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.14rem;
+}
+
+.arch-hypervisor {
+  background: linear-gradient(90deg, rgba(13,148,136,0.12), rgba(13,148,136,0.04));
+  border: 1px solid rgba(13,148,136,0.3);
+  color: #0f766e;
+}
+
+.arch-hardware {
+  background: linear-gradient(90deg, rgba(71,85,105,0.1), rgba(71,85,105,0.04));
+  border: 1px solid rgba(71,85,105,0.25);
+  color: #334155;
+}
