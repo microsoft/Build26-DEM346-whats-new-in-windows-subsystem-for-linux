@@ -5,17 +5,18 @@
     <SlideDemo      :is-active="current === 2" :is-exit-left="exitLeft === 2" variant="cli" />
     <SlideSurfaces  :is-active="current === 3" :is-exit-left="exitLeft === 3" />
     <SlideUseCases  :is-active="current === 4" :is-exit-left="exitLeft === 4" />
-    <SlideDemo      :is-active="current === 5" :is-exit-left="exitLeft === 5" variant="api" />
-    <SlideArchOverview :is-active="current === 6" :is-exit-left="exitLeft === 6" />
+    <SlideMoonray   :is-active="current === 5" :is-exit-left="exitLeft === 5" />
+    <SlideDemo      :is-active="current === 6" :is-exit-left="exitLeft === 6" variant="api" />
+    <SlideArchOverview :is-active="current === 7" :is-exit-left="exitLeft === 7" />
     <SlideArchitecture
-      :is-active="current === 7"
-      :is-exit-left="exitLeft === 7"
+      :is-active="current === 8"
+      :is-exit-left="exitLeft === 8"
       :phase="archPhase"
     />
-    <SlideArchStorage :is-active="current === 8" :is-exit-left="exitLeft === 8" :phase="storagePhase" />
-    <SlideArchCommand :is-active="current === 9" :is-exit-left="exitLeft === 9" :phase="commandPhase" />
-    <SlideAzureLinux :is-active="current === 10" :is-exit-left="exitLeft === 10" />
-    <SlideThankYou  :is-active="current === 11" :is-exit-left="exitLeft === 11" />
+    <SlideArchStorage :is-active="current === 9" :is-exit-left="exitLeft === 9" :phase="storagePhase" />
+    <SlideArchCommand :is-active="current === 10" :is-exit-left="exitLeft === 10" :phase="commandPhase" />
+    <SlideAzureLinux :is-active="current === 11" :is-exit-left="exitLeft === 11" />
+    <SlideThankYou  :is-active="current === 12" :is-exit-left="exitLeft === 12" />
   </div>
 
   <!-- Slide counter -->
@@ -31,6 +32,7 @@ import SlideOverview from './components/slides/SlideOverview.vue'
 import SlideDemo from './components/slides/SlideDemo.vue'
 import SlideSurfaces from './components/slides/SlideSurfaces.vue'
 import SlideUseCases from './components/slides/SlideUseCases.vue'
+import SlideMoonray from './components/slides/SlideMoonray.vue'
 import SlideArchOverview from './components/slides/SlideArchOverview.vue'
 import SlideArchitecture from './components/slides/SlideArchitecture.vue'
 import SlideArchStorage from './components/slides/SlideArchStorage.vue'
@@ -38,12 +40,12 @@ import SlideArchCommand from './components/slides/SlideArchCommand.vue'
 import SlideAzureLinux from './components/slides/SlideAzureLinux.vue'
 import SlideThankYou from './components/slides/SlideThankYou.vue'
 
-const total = 12
-const ARCH_INDEX = 7
+const total = 13
+const ARCH_INDEX = 8
 const ARCH_PHASES = 5
-const STORAGE_INDEX = 8
+const STORAGE_INDEX = 9
 const STORAGE_PHASES = 3
-const COMMAND_INDEX = 9
+const COMMAND_INDEX = 10
 const COMMAND_PHASES = 4
 
 function readHash() {
