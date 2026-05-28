@@ -1,0 +1,123 @@
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  height: 100%; width: 100%;
+  overflow: hidden;
+  background: var(--bg-deep);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Slide container ── */
+.deck {
+  position: relative;
+  width: 100vw; height: 100vh;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 6rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(60px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  background: var(--bg-slide);
+  overflow: hidden;
+}
+
+.slide.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.slide.exit-left {
+  opacity: 0;
+  transform: translateX(-60px);
+}
+
+/* ── Background decorations ── */
+.slide::before {
+  content: '';
+  position: absolute;
+  width: 800px; height: 800px;
+  border-radius: 50%;
+  filter: blur(160px);
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.slide > * { position: relative; z-index: 1; }
+
+/* ── Typography ── */
+h1 { font-size: 4rem; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; }
+h2 { font-size: 2.8rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; }
+h3 { font-size: 1.6rem; font-weight: 600; color: var(--text-muted); }
+p  { font-size: 1.15rem; line-height: 1.7; color: var(--text-muted); max-width: 640px; }
+
+.tag {
+  position: absolute;
+  top: 3rem;
+  left: 0;
+  right: 0;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 0.3rem 1rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  z-index: 2;
+}
+
+/* ── Slide counter ── */
+.slide-counter {
+  position: fixed;
+  bottom: 1.2rem; right: 1.8rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  z-index: 100;
+  letter-spacing: 0.05em;
+}
+
+/* ── Animations ── */
+.slide.active .fade-up {
+  animation: fadeUp 0.6s ease both;
+}
+
+.slide.active .fade-up:nth-child(1) { animation-delay: 0.1s; }
+.slide.active .fade-up:nth-child(2) { animation-delay: 0.2s; }
+.slide.active .fade-up:nth-child(3) { animation-delay: 0.3s; }
+.slide.active .fade-up:nth-child(4) { animation-delay: 0.4s; }
+.slide.active .fade-up:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* feature cards stagger */
+.slide.active .feature-card { animation: fadeUp 0.5s ease both; }
+.slide.active .feature-card:nth-child(1) { animation-delay: 0.15s; }
+.slide.active .feature-card:nth-child(2) { animation-delay: 0.25s; }
+.slide.active .feature-card:nth-child(3) { animation-delay: 0.35s; }
+.slide.active .feature-card:nth-child(4) { animation-delay: 0.45s; }
+
+.slide.active .usecase-card { animation: fadeUp 0.5s ease both; }
+.slide.active .usecase-card:nth-child(1) { animation-delay: 0.15s; }
+.slide.active .usecase-card:nth-child(2) { animation-delay: 0.25s; }
+.slide.active .usecase-card:nth-child(3) { animation-delay: 0.35s; }
+
+.slide.active .surface-col { animation: fadeUp 0.5s ease both; }
+.slide.active .surface-col:nth-child(1) { animation-delay: 0.15s; }
+.slide.active .surfaces-divider { animation: fadeUp 0.5s ease both; animation-delay: 0.25s; }
+.slide.active .surface-col:nth-child(3) { animation-delay: 0.35s; }

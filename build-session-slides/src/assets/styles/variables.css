@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+
+:root {
+  --bg-deep: #f1f5f9;
+  --bg-slide: #ffffff;
+  --accent-purple: #7c3aed;
+  --accent-blue: #2563eb;
+  --accent-green: #059669;
+  --accent-pink: #db2777;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #475569;
+  --card-bg: rgba(0,0,0,0.02);
+  --card-border: rgba(0,0,0,0.10);
+  --glow-purple: rgba(124, 58, 237, 0.08);
+  --glow-blue: rgba(59, 130, 246, 0.08);
+}
