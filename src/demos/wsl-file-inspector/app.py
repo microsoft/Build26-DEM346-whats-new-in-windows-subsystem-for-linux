@@ -88,7 +88,7 @@ HTML_TEMPLATE = """
     {% endif %}
 
     <div class="footer">
-      <p>Powered by Linux tools running in Docker on WSL 🐧</p>
+      <p>Powered by Linux tools running in a WSL container 🐧</p>
       <p style="margin-top:0.5rem">file · exiftool · strings · hexdump · wc · stat</p>
     </div>
   </div>

@@ -72,7 +72,6 @@
 
 1. **🧑‍💻 Developers**
    - Built-in Linux container CLI on Windows
-   - No Docker Desktop license needed
    - GPU, filesystem mounts, networking — all integrated
 
 2. **🏗️ App Builders (ISVs)**

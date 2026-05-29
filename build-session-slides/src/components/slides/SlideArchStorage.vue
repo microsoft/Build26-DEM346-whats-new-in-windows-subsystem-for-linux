@@ -102,8 +102,8 @@
               <div class="arch-moby-pos">
                 <span class="arch-chip chip-green" ref="mobyRef">container runtime (moby)</span>
               </div>
-              <div class="arch-docker-pos arch-reveal" :style="{ transform: `translateY(${dockerOffset}px)` }">
-                <div class="arch-storage-card storage-linux" ref="dockerRef">/var/lib/&lt;container-storage&gt;</div>
+              <div class="arch-wslc-storage-pos arch-reveal" :style="{ transform: `translateY(${wslcStorageOffset}px)` }">
+                <div class="arch-storage-card storage-linux" ref="wslcStorageRef">/var/lib/&lt;container-storage&gt;</div>
               </div>
             </div>
           </div>
@@ -135,11 +135,11 @@ const dllRef = ref(null)
 const serviceRef = ref(null)
 const wslcRef = ref(null)
 const mobyRef = ref(null)
-const dockerRef = ref(null)
+const wslcStorageRef = ref(null)
 const vhdRef = ref(null)
 const vhdxRef = ref(null)
 const arrows = ref([])
-const dockerOffset = ref(0)
+const wslcStorageOffset = ref(0)
 
 function pos(el, side) {
   if (!el || !diagramRef.value) return null
@@ -225,14 +225,14 @@ function updateArrows() {
   // Phase 2+: moby → /var/lib/<container-storage> ("Writes to")
   if (props.phase >= 2) {
     const mobyBot = pos(mobyRef.value, 'bottom')
-    const dockerTop = pos(dockerRef.value, 'top')
-    if (mobyBot && dockerTop) {
+    const wslcStorageTop = pos(wslcStorageRef.value, 'top')
+    if (mobyBot && wslcStorageTop) {
       result.push({
-        path: `M ${mobyBot.x} ${mobyBot.y} L ${dockerTop.x} ${dockerTop.y}`,
+        path: `M ${mobyBot.x} ${mobyBot.y} L ${wslcStorageTop.x} ${wslcStorageTop.y}`,
         color: '#059669', marker: 'url(#ahs-green)', strokeWidth: 2,
         label: 'Writes to',
         labelX: mobyBot.x + 50,
-        labelY: (mobyBot.y + dockerTop.y) / 2,
+        labelY: (mobyBot.y + wslcStorageTop.y) / 2,
         labelColor: '#047857',
       })
     }
@@ -240,22 +240,22 @@ function updateArrows() {
 
   // Phase 3: /var/lib/<container-storage> → Storage VHD + vhdx ("Backed by" Y-fork)
   if (props.phase >= 3) {
-    const dockerP = pos(dockerRef.value, 'left')
+    const wslcStorageP = pos(wslcStorageRef.value, 'left')
     const vhdP = pos(vhdRef.value, 'right')
     const vhdxP = pos(vhdxRef.value, 'right')
 
-    if (dockerP && vhdP && vhdxP) {
+    if (wslcStorageP && vhdP && vhdxP) {
       const tgtMaxX = Math.max(vhdP.x, vhdxP.x)
-      const forkX = tgtMaxX + (dockerP.x - tgtMaxX) * 0.55
-      const forkY = dockerP.y
+      const forkX = tgtMaxX + (wslcStorageP.x - tgtMaxX) * 0.55
+      const forkY = wslcStorageP.y
       const maxR = 12
 
-      // Stem: docker → fork point (straight horizontal)
+      // Stem: container storage → fork point (straight horizontal)
       result.push({
-        path: `M ${dockerP.x} ${dockerP.y} L ${forkX} ${forkY}`,
+        path: `M ${wslcStorageP.x} ${wslcStorageP.y} L ${forkX} ${forkY}`,
         color: '#d97706', marker: 'none', strokeWidth: 2,
         label: 'Backed by',
-        labelX: (dockerP.x + forkX) / 2,
+        labelX: (wslcStorageP.x + forkX) / 2,
         labelY: forkY - 14,
         labelColor: '#d97706',
       })
@@ -291,21 +291,21 @@ function updateArrows() {
   arrows.value = result
 }
 
-// Compute docker offset immediately on first activation, before any phase transition
+// Compute container storage offset immediately on first activation, before any phase transition
 watch(() => props.isActive, async (active) => {
-  if (active && dockerOffset.value === 0) {
+  if (active && wslcStorageOffset.value === 0) {
     await nextTick()
-    // Read positions immediately — docker has no translateY, VHD/vhdx have 12px
-    if (vhdRef.value && vhdxRef.value && dockerRef.value && diagramRef.value) {
+    // Read positions immediately — container storage has no translateY, VHD/vhdx have 12px
+    if (vhdRef.value && vhdxRef.value && wslcStorageRef.value && diagramRef.value) {
       const c = diagramRef.value.getBoundingClientRect()
       const vhdR = vhdRef.value.getBoundingClientRect()
       const vhdxR = vhdxRef.value.getBoundingClientRect()
-      const dockerR = dockerRef.value.getBoundingClientRect()
+      const wslcStorageR = wslcStorageRef.value.getBoundingClientRect()
       const vhdY = vhdR.top + vhdR.height / 2 - c.top - 12
       const vhdxY = vhdxR.top + vhdxR.height / 2 - c.top - 12
-      const dockerY = dockerR.top + dockerR.height / 2 - c.top
+      const wslcStorageY = wslcStorageR.top + wslcStorageR.height / 2 - c.top
       const midY = (vhdY + vhdxY) / 2
-      dockerOffset.value = midY - dockerY
+      wslcStorageOffset.value = midY - wslcStorageY
     }
   }
 }, { immediate: true })
@@ -378,7 +378,7 @@ watch([() => props.isActive, () => props.phase], async ([active]) => {
 }
 
 /* Phase reveal transitions */
-.arch-docker-pos {
+.arch-wslc-storage-pos {
   transition: opacity 0.5s ease, visibility 0.5s;
 }
 .arch-vhd-pos,
@@ -387,7 +387,7 @@ watch([() => props.isActive, () => props.phase], async ([active]) => {
 }
 
 /* Phase 1: hide new storage boxes */
-.storage-phase-1 .arch-docker-pos {
+.storage-phase-1 .arch-wslc-storage-pos {
   opacity: 0; visibility: hidden;
 }
 .storage-phase-1 .arch-vhd-pos,
@@ -395,7 +395,7 @@ watch([() => props.isActive, () => props.phase], async ([active]) => {
   opacity: 0; visibility: hidden; transform: translateY(12px);
 }
 
-/* Phase 2: docker visible, VHD + vhdx hidden */
+/* Phase 2: container storage visible, VHD + vhdx hidden */
 .storage-phase-2 .arch-vhd-pos,
 .storage-phase-2 .arch-vhdx-pos {
   opacity: 0; visibility: hidden; transform: translateY(12px);
