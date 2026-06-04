@@ -75,6 +75,7 @@ Help me create a simple containerized Python web app that runs on Windows using 
 | [GPU Support in WSL](https://learn.microsoft.com/windows/wsl/tutorials/gpu-compute) | Set up GPU-accelerated workloads in WSL |
 | [WinUI 3 Documentation](https://learn.microsoft.com/windows/apps/winui/winui3/) | Build modern Windows desktop apps with WinUI |
 | [Explore Microsoft Build 2026 Labs and Sessions](https://aka.ms/build26-next-steps) | Explore lab and session repos to further your learning from Microsoft Build |
+| [Watch the session recording](https://aka.ms/build26/DEM346/youtube) | Watch the recorded Microsoft Build session. |
 
 
 ### 🌟 Microsoft Learn MCP Server
